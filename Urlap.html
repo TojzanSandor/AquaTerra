@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regisztráció</title>
+    <link href="startbootstrap-agency-gh-pages\css\styles.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Regisztráció</h2>
+    <form id="registrationForm" action="register.php" method="POST">
+        <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrf_token, ENT_QUOTES, 'UTF-8'); ?>">
+        <div class="mb-3">
+            <label for="username" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="email" class="form-label">Felhasználónév</label>
+            <input type="text" class="form-control" id="username" name="username" required minlength="3" maxlength="16" pattern="^[a-zA-Z0-9_]+$">
+        </div>
+        
+        <div class="mb-3">
+            <label for="password" class="form-label">Jelszó</label>
+            <input type="password" class="form-control" id="password" name="password" required minlength="8">
+        </div>
+
+        <div class="mb-3">
+            <label for="confirm_password" class="form-label">Jelszó megerősítése</label>
+            <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="userType" class="form-label">Regisztráció típusa</label>
+            <select class="form-select" id="userType" name="userType" required>
+                <option value="individual">Egyéni Felhasználó</option>
+                <option value="company">Céges Felhasználó</option>
+            </select>
+        </div>
+
+        <!-- Extra fields for company registration -->
+        <div id="companyFields" style="display: none;">
+            <div class="mb-3">
+                <label for="companyName" class="form-label">Cég neve</label>
+                <input type="text" class="form-control" id="companyName" name="companyName">
+            </div>
+
+            <div class="mb-3">
+                <label for="companyWebsite" class="form-label">Cég weboldala</label>
+                <input type="url" class="form-control" id="companyWebsite" name="companyWebsite" pattern="https?://.+">
+            </div>
+
+            <div class="mb-3">
+                <label for="companyAddress" class="form-label">Cég címe</label>
+                <input type="text" class="form-control" id="companyAddress" name="companyAddress">
+            </div>
+
+            <div class="mb-3">
+                <label for="companyDescription" class="form-label">Cégleírás</label>
+                <textarea class="form-control" id="companyDescription" name="companyDescription"></textarea>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Regisztráció</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById('userType').addEventListener('change', function() {
+        var companyFields = document.getElementById('companyFields');
+        if (this.value === 'company') {
+            companyFields.style.display = 'block';
+        } else {
+            companyFields.style.display = 'none';
+        }
+    });
+</script>
+</body>
+</html>
